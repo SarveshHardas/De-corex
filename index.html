@@ -3,356 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lavender Events - Premium Event Management</title>
-    <link rel="stylesheet" href="/styles.css">
+    <title>Decore X - Event Management</title>
+    <link rel="icon" href="/assets/logo.png" type="png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Screen 1: Logo & Login -->
-        <div class="screen active" id="screen1">
-            <div class="header">
-                <div class="logo">🌸 Decore X</div>
-                <div class="tagline">Creating Magical Moments</div>
-            </div>
-            <div class="card">
-                <h2 style="text-align: center; color: var(--lavender-deep); margin-bottom: 30px;">Welcome to Premium Event Management</h2>
-                <div style="text-align: center;">
-                    <button class="btn" onclick="showScreen(2)">Start Planning Your Event</button>
-                    <button class="btn btn-secondary" onclick="showScreen(2)">Login</button>
-                </div>
-            </div>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="logo-container">
+            <img src="/assets/logo.png" alt="Decore-X logo" class="logo">
+            <h1>Decore X</h1>
+            <p>Your perfect event, our responsibility</p>
         </div>
+        <button id="login-btn" class="btn lavender-btn">Login</button>
+    </div>
 
-        <!-- Screen 2: Contact Information -->
-        <div class="screen" id="screen2">
-            <div class="header">
-                <div class="logo">Contact Details</div>
-            </div>
-            <div class="card">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your full name">
-                </div>
-                <div class="form-group">
-                    <label for="contact">Contact Number</label>
-                    <input type="tel" id="contact" placeholder="Enter your phone number">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="place">Event Location</label>
-                    <input type="text" id="place" placeholder="Where will your event be held?">
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(1)">← Back</button>
-                    <button class="btn" onclick="showScreen(3)">Continue →</button>
-                </div>
-            </div>
+    <!-- Login Form Screen -->
+    <div id="login-screen" class="screen">
+        <div class="back-btn" onclick="goBack('welcome-screen')">
+            <i class="fas fa-arrow-left"></i>
         </div>
+        <h2>Enter Your Details</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="tel" id="contact" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="place">Location</label>
+                <input type="text" id="place" required>
+            </div>
+            <button type="submit" class="btn lavender-btn">
+                Continue <i class="fas fa-arrow-right"></i>
+            </button>
+        </form>
+    </div>
 
-        <!-- Screen 3: Event Type Selection -->
-        <div class="screen" id="screen3">
-            <div class="header">
-                <div class="logo">Select Event Type</div>
-            </div>
-            <div class="card">
-                <div class="form-group">
-                    <label for="searchDate">Search by Date</label>
-                    <input type="date" id="searchDate">
-                </div>
-                <div class="service-categories">
-                    <div class="category-btn active" onclick="filterEvents('all')">All Events</div>
-                    <div class="category-btn" onclick="filterEvents('wedding')">Wedding</div>
-                    <div class="category-btn" onclick="filterEvents('cultural')">Cultural</div>
-                    <div class="category-btn" onclick="filterEvents('birthday')">Birthday</div>
-                    <div class="category-btn" onclick="filterEvents('other')">Other</div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(2)">← Back</button>
-                    <button class="btn" onclick="showScreen(4)">Continue →</button>
-                </div>
-            </div>
+    <!-- Event Type Selection Screen -->
+    <div id="event-type-screen" class="screen">
+        <div class="back-btn" onclick="goBack('login-screen')">
+            <i class="fas fa-arrow-left"></i>
         </div>
-
-        <!-- Screen 4: Service Selection -->
-        <div class="screen" id="screen4">
-            <div class="header">
-                <div class="logo">Choose Services</div>
+        <h2>Select Event Type</h2>
+        <div class="card-container">
+            <div class="card" onclick="selectEventType('Wedding')">
+                <i class="fas fa-ring card-icon"></i>
+                <h3>Wedding</h3>
             </div>
-            <div class="card">
-                <div class="service-grid">
-                    <div class="service-item" onclick="toggleService(this, 'Lawn Decoration', 2500)">
-                        <h3>🌿 Lawn</h3>
-                        <p>₹2,500</p>
-                    </div>
-                    <div class="service-item" onclick="toggleService(this, 'DJ Services', 3000)">
-                        <h3>🎵 DJ</h3>
-                        <p>₹3,000</p>
-                    </div>
-                    <div class="service-item" onclick="toggleService(this, 'Catering', 5000)">
-                        <h3>🍽️ Catering</h3>
-                        <p>₹5,000</p>
-                    </div>
-                    <div class="service-item" onclick="toggleService(this, 'Decoration', 4000)">
-                        <h3>🎨 Decoration</h3>
-                        <p>₹4,000</p>
-                    </div>
-                    <div class="service-item" onclick="toggleService(this, 'Many More', 1000)">
-                        <h3>✨ Many More</h3>
-                        <p>₹1,000+</p>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(3)">← Back</button>
-                    <button class="btn" onclick="showScreen(5)">Continue →</button>
-                </div>
+            <div class="card" onclick="selectEventType('Cultural')">
+                <i class="fas fa-music card-icon"></i>
+                <h3>Cultural</h3>
             </div>
-        </div>
-
-        <!-- Screen 5: Lawn Details -->
-        <div class="screen" id="screen5">
-            <div class="header">
-                <div class="logo">Lawn Details</div>
+            <div class="card" onclick="selectEventType('Birthday')">
+                <i class="fas fa-birthday-cake card-icon"></i>
+                <h3>Birthday</h3>
             </div>
-            <div class="card">
-                <div class="grid">
-                    <div>
-                        <h3 style="color: var(--lavender-deep);">Available Packages</h3>
-                        <div class="service-item" onclick="selectPackage('Premium Lawn Package', 5000)">
-                            <h4>🌟 Premium Package</h4>
-                            <p>Complete lawn setup with premium decorations</p>
-                            <strong>₹5,000</strong>
-                        </div>
-                        <div class="service-item" onclick="selectPackage('Standard Lawn Package', 3000)">
-                            <h4>🌿 Standard Package</h4>
-                            <p>Basic lawn arrangement with essential decorations</p>
-                            <strong>₹3,000</strong>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 style="color: var(--lavender-deep);">Package Details</h3>
-                        <div id="packageDetails" style="background: var(--lavender-light); padding: 20px; border-radius: 10px;">
-                            <p>Select a package to view details</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(4)">← Back</button>
-                    <button class="btn" onclick="showScreen(6)">Continue →</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 6: Catering Options -->
-        <div class="screen" id="screen6">
-            <div class="header">
-                <div class="logo">Catering Menu</div>
-            </div>
-            <div class="card">
-                <div class="grid">
-                    <div>
-                        <h3 style="color: var(--lavender-deep);">Menu Options</h3>
-                        <div class="service-item" onclick="selectCatering('Vegetarian Deluxe', 800)">
-                            <h4>🥗 Vegetarian Deluxe</h4>
-                            <p>₹800 per person</p>
-                        </div>
-                        <div class="service-item" onclick="selectCatering('Non-Veg Special', 1200)">
-                            <h4>🍗 Non-Veg Special</h4>
-                            <p>₹1,200 per person</p>
-                        </div>
-                        <div class="service-item" onclick="selectCatering('Mixed Cuisine', 1000)">
-                            <h4>🍽️ Mixed Cuisine</h4>
-                            <p>₹1,000 per person</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-group">
-                            <label for="guestCount">Number of Guests</label>
-                            <input type="number" id="guestCount" placeholder="Enter expected guests" min="1" onchange="updateCateringTotal()">
-                        </div>
-                        <div id="cateringTotal" style="background: var(--lavender-light); padding: 15px; border-radius: 10px; margin-top: 20px;">
-                            <strong>Total Catering Cost: ₹0</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(5)">← Back</button>
-                    <button class="btn" onclick="showScreen(7)">Continue →</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 7: Decoration Options -->
-        <div class="screen" id="screen7">
-            <div class="header">
-                <div class="logo">Decoration Themes</div>
-            </div>
-            <div class="card">
-                <div class="service-grid">
-                    <div class="service-item" onclick="selectDecoration('Lavender Garden', 6000)">
-                        <h3>💜 Lavender Garden</h3>
-                        <p>Elegant purple & white theme</p>
-                        <strong>₹6,000</strong>
-                    </div>
-                    <div class="service-item" onclick="selectDecoration('Royal Gold', 8000)">
-                        <h3>👑 Royal Gold</h3>
-                        <p>Luxurious gold theme</p>
-                        <strong>₹8,000</strong>
-                    </div>
-                    <div class="service-item" onclick="selectDecoration('Floral Paradise', 7000)">
-                        <h3>🌺 Floral Paradise</h3>
-                        <p>Fresh flower arrangements</p>
-                        <strong>₹7,000</strong>
-                    </div>
-                    <div class="service-item" onclick="selectDecoration('Modern Minimalist', 5000)">
-                        <h3>✨ Modern Minimalist</h3>
-                        <p>Clean, contemporary design</p>
-                        <strong>₹5,000</strong>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(6)">← Back</button>
-                    <button class="btn" onclick="showScreen(8)">Continue →</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 8: DJ Services -->
-        <div class="screen" id="screen8">
-            <div class="header">
-                <div class="logo">DJ & Entertainment</div>
-            </div>
-            <div class="card">
-                <div class="grid">
-                    <div>
-                        <h3 style="color: var(--lavender-deep);">DJ Packages</h3>
-                        <div class="service-item" onclick="selectDJ('Basic DJ Package', 4000)">
-                            <h4>🎵 Basic Package</h4>
-                            <p>4 hours, standard sound system</p>
-                            <strong>₹4,000</strong>
-                        </div>
-                        <div class="service-item" onclick="selectDJ('Premium DJ Package', 7000)">
-                            <h4>🎤 Premium Package</h4>
-                            <p>6 hours, premium sound + lighting</p>
-                            <strong>₹7,000</strong>
-                        </div>
-                        <div class="service-item" onclick="selectDJ('Deluxe DJ Package', 10000)">
-                            <h4>🎊 Deluxe Package</h4>
-                            <p>8 hours, full setup + live mixing</p>
-                            <strong>₹10,000</strong>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 style="color: var(--lavender-deep);">Music Preferences</h3>
-                        <div class="form-group">
-                            <label>Select Music Genres</label>
-                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                <div class="category-btn" onclick="toggleGenre(this)">Bollywood</div>
-                                <div class="category-btn" onclick="toggleGenre(this)">Classical</div>
-                                <div class="category-btn" onclick="toggleGenre(this)">EDM</div>
-                                <div class="category-btn" onclick="toggleGenre(this)">Regional</div>
-                                <div class="category-btn" onclick="toggleGenre(this)">International</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(7)">← Back</button>
-                    <button class="btn" onclick="showScreen(9)">Continue →</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 9: Total Booking Summary -->
-        <div class="screen" id="screen9">
-            <div class="header">
-                <div class="logo">Booking Summary</div>
-            </div>
-            <div class="card">
-                <div class="booking-summary">
-                    <h3 style="color: var(--lavender-deep); margin-bottom: 20px;">Your Event Package</h3>
-                    <div id="bookingSummary">
-                        <!-- Summary will be populated by JavaScript -->
-                    </div>
-                    <div class="summary-item" style="border-top: 2px solid var(--lavender-dark); font-size: 1.2em; font-weight: bold;">
-                        <span>Total Amount:</span>
-                        <span id="totalAmount">₹0</span>
-                    </div>
-                </div>
-                <div style="text-align: center; margin: 30px 0;">
-                    <button class="btn" onclick="showScreen(10)" style="font-size: 18px; padding: 15px 30px;">Book Now</button>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(8)">← Back</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 10: Advance Payment -->
-        <div class="screen" id="screen10">
-            <div class="header">
-                <div class="logo">Payment Details</div>
-            </div>
-            <div class="card">
-                <h3 style="color: var(--lavender-deep); margin-bottom: 20px;">Advance Payment Required</h3>
-                <div class="form-group">
-                    <label for="paymentName">Name on Card</label>
-                    <input type="text" id="paymentName" placeholder="Enter name as on card">
-                </div>
-                <div class="form-group">
-                    <label for="paymentContact">Contact Number</label>
-                    <input type="tel" id="paymentContact" placeholder="Enter contact number">
-                </div>
-                <div class="form-group">
-                    <label for="paymentMode">Mode of Payment</label>
-                    <select id="paymentMode">
-                        <option value="">Select payment method</option>
-                        <option value="card">Credit/Debit Card</option>
-                        <option value="upi">UPI</option>
-                        <option value="netbanking">Net Banking</option>
-                        <option value="wallet">Digital Wallet</option>
-                    </select>
-                </div>
-                <div style="background: var(--lavender-light); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                    <h4>Advance Payment: <span id="advanceAmount">₹0</span></h4>
-                    <p style="margin-top: 10px; color: var(--text-dark);">
-                        Pay 30% advance to confirm your booking. Remaining amount can be paid on the event day.
-                    </p>
-                </div>
-                <div style="text-align: center;">
-                    <button class="btn" onclick="processPayment()" style="font-size: 18px; padding: 15px 30px;">Pay Now</button>
-                </div>
-                <div class="nav-buttons">
-                    <button class="btn btn-secondary" onclick="showScreen(9)">← Back</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 11: Success -->
-        <div class="screen" id="screen11">
-            <div class="card">
-                <div class="success-message">
-                    <div class="success-icon">🎉</div>
-                    <h1 style="color: var(--lavender-deep); margin-bottom: 20px;">Booked Successfully!</h1>
-                    <h2 style="color: var(--lavender-dark); margin-bottom: 30px;">Just chill & Enjoy!</h2>
-                    <p style="font-size: 18px; margin-bottom: 30px;">
-                        Your event has been successfully booked. We'll contact you soon with further details.
-                    </p>
-                    <div style="background: var(--lavender-light); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3>Booking Confirmation</h3>
-                        <p><strong>Booking ID:</strong> <span id="bookingId"></span></p>
-                        <p><strong>Event Date:</strong> <span id="confirmedDate"></span></p>
-                        <p><strong>Total Amount:</strong> <span id="confirmedAmount"></span></p>
-                        <p><strong>Advance Paid:</strong> <span id="confirmedAdvance"></span></p>
-                    </div>
-                    <button class="btn" onclick="startOver()">Plan Another Event</button>
-                </div>
+            <div class="card" onclick="selectEventType('Others')">
+                <i class="fas fa-calendar-alt card-icon"></i>
+                <h3>Others</h3>
             </div>
         </div>
     </div>
 
-    <script src="/script.js"></script>    
+    <!-- Service Selection Screen -->
+    <div id="service-screen" class="screen">
+        <div class="back-btn" onclick="goBack('event-type-screen')">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h2 id="service-screen-title">Select Services</h2>
+        <div class="card-container">
+            <div class="card" onclick="showServiceOptions('lawn')">
+                <i class="fas fa-tree card-icon"></i>
+                <h3>Lawn</h3>
+            </div>
+            <div class="card" onclick="showServiceOptions('dj')">
+                <i class="fas fa-headphones card-icon"></i>
+                <h3>DJ</h3>
+            </div>
+            <div class="card" onclick="showServiceOptions('catering')">
+                <i class="fas fa-utensils card-icon"></i>
+                <h3>Catering</h3>
+            </div>
+            <div class="card" onclick="showServiceOptions('decoration')">
+                <i class="fas fa-paint-brush card-icon"></i>
+                <h3>Decoration</h3>
+            </div>
+            <div class="card" onclick="alert('Photography service selected')">
+                <i class="fas fa-camera card-icon"></i>
+                <h3>Photography</h3>
+            </div>
+        </div>
+        <button class="btn lavender-btn continue-btn" onclick="showBillingScreen()">Continue</button>
+    </div>
+
+    <!-- Lawn Selection Screen -->
+    <div id="lawn-screen" class="screen">
+        <div class="back-btn" onclick="goBack('service-screen')">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h2>Select Lawn</h2>
+        <div class="card-container">
+            <div class="venue-card" onclick="selectService('Lawn', 'Nakshatram Lawn', 'IT Park, Wardha', 5000)">
+                <img src="/assets/nakshatram.webp" alt="Nakshatram Lawn">
+                <h3>Nakshatram Lawn</h3>
+                <p>IT Park, Wardha</p>
+                <p class="price">$5000</p>
+            </div>
+            <div class="venue-card" onclick="selectService('Lawn', 'Shivanya Lawn', 'Samarthwadi - Yogiraj Govind Maharaj Temple, Wardha', 4500)">
+                <img src="/assets/shivanya lawn.webp" alt="Shivanya Lawn">
+                <h3>Shivanya Lawn</h3>
+                <p>Samarthwadi - Yogiraj Govind Maharaj Temple, Wardha</p>
+                <p class="price">$4500</p>
+            </div>
+            <div class="venue-card" onclick="selectService('Lawn', 'The Heritage Grand', 'Bachelor Rd, near old Lok Vidhyalaya School, Wardha', 6000)">
+                <img src="/assets/heritage.jpg" alt="Heritage Lawn">
+                <h3>The Heritage Grand</h3>
+                <p>Bachelor Rd, near old Lok Vidhyalaya School, Wardha</p>
+                <p class="price">$6000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dj Selection Screen -->
+    <div id="dj-screen" class="screen">
+        <div class="back-btn" onclick="goBack('service-screen')">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h2>Select DJ Service</h2>
+        <div class="card-container">
+            <div class="venue-card" onclick="selectService('DJ', 'The Tanzz pro sound', 'Professional DJ with 10+ years experience', 1200)">
+                <img src="/assets/tanzz.jpg" alt="The Tanzz">
+                <h3>The Tanzz pro sound</h3>
+                <p>Samta nagar Sawangi, meghe, Wardha</p>
+                <p class="price">$1200</p>
+            </div>
+            <div class="venue-card" onclick="selectService('DJ', 'Suraj band', 'Specializes in weddings and corporate events', 1500)">
+                <img src="/assets/suraj.jpg" alt="Suraj">
+                <h3>Suraj band and event group</h3>
+                <p>Indira market, Bachelor Rd, Wardha</p>
+                <p class="price">$1500</p>
+            </div>
+            <div class="venue-card" onclick="selectService('DJ', 'SK DJ Shubham', 'High energy for birthdays and celebrations', 1000)">
+                <img src="/assets/shubham.jpg" alt="Shubham">
+                <h3>SK DJ Shubham</h3>
+                <p>near Hostel, Bhim Nagar, Samta Nagar, Wardha</p>
+                <p class="price">$1000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Catering Selection Screen -->
+    <div id="catering-screen" class="screen">
+        <div class="back-btn" onclick="goBack('service-screen')">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h2>Select Catering Service</h2>
+        <div class="card-container">
+            <div class="venue-card" onclick="selectService('Catering', 'Annapurna Caters', 'Premium catering for 100 guests', 3000)">
+                <h3>Annapurna caters</h3>
+                <p>Gond plot, Sudampuri, Wardha</p>
+                <p class="price">$3000</p>
+            </div>
+            <div class="venue-card" onclick="selectService('Catering', 'Wanjari Caters', 'Buffet style for all occasions', 2500)">
+                <h3>Wanjari Caters</h3>
+                <p>Gond plot, Subhash chowk, Wardha</p>
+                <p class="price">$2500</p>
+            </div>
+            <div class="venue-card" onclick="selectService('Catering', 'Yashwant Caters', 'Traditional meals with vegetarian options', 2000)">
+                <h3>Yashwant Caters</h3>
+                <p>Karla road, Vaishnavi complex no.1, Wardha</p>
+                <p class="price">$2000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decoration Selection Screen -->
+    <div id="decoration-screen" class="screen">
+        <div class="back-btn" onclick="goBack('service-screen')">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h2>Select Decoration Service</h2>
+        <div class="card-container">
+            <div class="venue-card" onclick="selectService('Decoration', 'The Party Decor', 'Luxury wedding decorations with flowers', 2500)">
+                <img src="/assets/party.jpg" alt="Party">
+                <h3>The Party Decor</h3>
+                <p>Sindhi Meghe, Wardha</p>
+                <p class="price">$2500</p>
+            </div>
+            <div class="venue-card" onclick="selectService('Decoration', 'Rainbow Decoration', 'Colorful decorations for birthdays', 1500)">
+                <img src="/assets/rainbow.jpg" alt="Rainbow">
+                <h3>Rainbow event decoration</h3>
+                <p>Ramnagar, Wardha</p>
+                <p class="price">$1500</p>
+            </div>
+            <div class="venue-card" onclick="selectService('Decoration', 'Saptapadi Decoration', 'Traditional decorations for cultural events', 2000)">
+                <img src="/assets/saptapadi.jpg" alt="Saptapadi">
+                <h3>Saptapadi Decoration</h3>
+                <p>mitkari bhavan, Bachelor road, Wardha</p>
+                <p class="price">$2000</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Billing Screen -->
+    <div id="billing-screen" class="screen">
+        <div class="back-btn" onclick="goBack('service-screen')">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h2>Your Booking Summary</h2>
+        <div class="bill-details">
+            <div id="user-details">
+                <h3>User Details</h3>
+                <p id="bill-name"></p>
+                <p id="bill-contact"></p>
+                <p id="bill-email"></p>
+                <p id="bill-place"></p>
+            </div>
+            <div id="event-details">
+                <h3>Event Details</h3>
+                <p id="bill-event-type"></p>
+                <div id="selected-services">
+                    <!-- Services will be added here dynamically -->
+                </div>
+            </div>
+            <div class="total-section">
+                <h3>Total Amount: <span id="total-amount">0</span></h3>
+            </div>
+        </div>
+        <button class="btn lavender-btn" onclick="showPaymentScreen()">Pay Now</button>
+    </div>
+
+    <!-- Payment Screen -->
+    <div id="payment-screen" class="screen">
+        <div class="back-btn" onclick="goBack('billing-screen')">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <h2>Advance Payment</h2>
+        <div class="payment-details">
+            <p>Total Amount: <span id="payment-total">0</span></p>
+            <p>Advance (40%): <span id="advance-amount">0</span></p>
+            <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+            </div>
+            <div class="form-group">
+                <label for="expiry">Expiry Date</label>
+                <input type="text" id="expiry" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="123" required>
+            </div>
+            <div class="form-group">
+                <label for="card-name">Name on Card</label>
+                <input type="text" id="card-name" required>
+            </div>
+        </div>
+        <button class="btn lavender-btn" onclick="showSuccessScreen()">Pay Now</button>
+    </div>
+
+    <!-- Success Screen -->
+    <div id="success-screen" class="screen">
+        <div class="success-content">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h2>Booking Successful!</h2>
+            <p>Your event has been booked successfully.</p>
+            <p>We've sent the details to your email.</p>
+            <button class="btn lavender-btn" onclick="resetApp()">Book Another Event</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
